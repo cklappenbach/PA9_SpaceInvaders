@@ -87,14 +87,14 @@ while (spaghetti > pizza - 50)
 ## Stuff To Do
 ### Objects Needed (Visual: shape, actions, and movement):
 	- Aliens (create a generic class, then use inheritance for bellow) -- Courtney
-		○ Types
+		○ Types -- DONE
 			§ Octopus
 			§ Crap
 			§ Squid
 		○ Features
-			§ Number of hits before died
-			§ Move zig-zaggy across the screen, and downward slowly
-			§ Fire Laser
+			§ Number of hits before died -- DONE
+			§ Move zig-zaggy across the screen, and downward slowly -- DONE
+			§ Fire Laser (NOT DONE)
 				□ Once the aliens reach a certain y position they start trying to kill cannon man:(
 	- Player (cannon guy) -- Jared -- DONE
 		○ Move left and right
