@@ -5,6 +5,7 @@
 #include "Squid.h"
 
 #define NUMALIENS 9
+#define ALIENSPEED 20
 
 int main()
 {
@@ -35,35 +36,40 @@ int main()
 		// MOVE ALIENS IN ZIG ZAG PATTERN
 		if (count % 1000 ==0) { // they only move every 1000th run, makes them "jump" like in the game
 			for (int i = 0; i < NUMALIENS; i++) { // do for every alien
-				alienArray[i]->moveAlien(direction, 30);
+			if (direction == 'd') { // if direction should be down, move all dowb
+				i = NUMALIENS; // resent counter so we start at 1st alien next loop
+				for (int k = 0; k < NUMALIENS;k++) {
+					alienArray[k]->moveAlien('d', ALIENSPEED); // move all the aliens down
+				}
+				if (lastDirection == 'r') { // switch from r to l
+					direction = 'l';
+				}
+				else if (lastDirection == 'l') { // switch from l to r
+					direction = 'r';
+				}
+			}
+			else {
+				alienArray[i]->moveAlien(direction, ALIENSPEED); // move left or right
 				sf::Vector2f alienPos = alienArray[i]->getPosition();
 				if (direction == 'r') {
 					if (alienPos.x > 750) { //if we reach right border, move down
+						for (int j = i + 1; j < NUMALIENS; j++) {
+							alienArray[j]->moveAlien(direction, ALIENSPEED); // move the rest of the aliens before moving down
+						}
 						direction = 'd';
 						lastDirection = 'r';
 					}
 				}
 				else if (direction == 'l') {
-					if (alienPos.x < 10) { // if we reach left border move down
+					if (alienPos.x < 50) { // if we reach left border move down
+						for (int j = i + 1; j < NUMALIENS; j++) {
+							alienArray[j]->moveAlien(direction, ALIENSPEED); // move the rest of the aliens before moving down
+						}
 						direction = 'd';
 						lastDirection = 'l';
 					}
 				}
-				else if (direction == 'd') {
-					if (downCount == NUMALIENS) { //if we finsih moving down
-						if (lastDirection == 'r') { // switch from r to l
-							direction = 'l';
-							downCount = 1;
-						}
-						else { // switch from l to r
-							direction = 'r';
-							downCount = 1;
-						}
-					}
-					else {
-						downCount++;
-					}
-				}
+			}
 			}
 			window.display();
 			window.clear();
